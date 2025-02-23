@@ -1,6 +1,6 @@
-import { NewsResponse } from "../../types/interfaces";
+import { NewsResponse } from '../../types/interfaces';
 
-  class Loader {
+class Loader {
     private baseLink: string;
     private options: Record<string, string>
 
@@ -10,7 +10,7 @@ import { NewsResponse } from "../../types/interfaces";
     }
 
     getResp(
-        { endpoint, options = {} }: {endpoint: string; options?: Record<string, string>},
+        { endpoint, options = {} }: { endpoint: string; options?: Record<string, string> },
         callback: (data: NewsResponse) => void = () => {
             console.error('No callback for GET response');
         }
@@ -28,7 +28,7 @@ import { NewsResponse } from "../../types/interfaces";
         return res;
     }
 
-    makeUrl( endpoint: string, options?: Record<string, string>) { // поменял местами параметры, так как если enpoint стоит в конце то TS выдает ошибку.
+    makeUrl(endpoint: string, options?: Record<string, string>) { // поменял местами параметры, так как если enpoint стоит в конце то TS выдает ошибку.
         const urlOptions = { ...this.options, ...(options || {}) };// options не будет undefined
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -39,7 +39,12 @@ import { NewsResponse } from "../../types/interfaces";
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: string, callback: (data: NewsResponse) => void, options?: Record<string, string>): void {
+    load(
+        method: string,
+        endpoint: string,
+        callback: (data: NewsResponse) => void,
+        options?: Record<string, string>
+    ): void {
         fetch(this.makeUrl(endpoint, options), { method })
             .then(this.errorHandler)
             .then((res) => res.json())

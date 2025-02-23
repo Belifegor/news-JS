@@ -5,6 +5,8 @@
       "strict": true,
       "noImplicitAny": true,
       "moduleResolution": "node",
+      "allowJs": true,
+      "checkJs": false,
       "outDir": "./dist",
       "rootDir": "./src",
       "esModuleInterop": true,
