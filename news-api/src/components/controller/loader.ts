@@ -1,19 +1,24 @@
-class Loader {
-    constructor(baseLink, options) {
+import { NewsResponse } from "../../types/interfaces";
+
+  class Loader {
+    private baseLink: string;
+    private options: Record<string, string>
+
+    constructor(baseLink: string, options: Record<string, string>) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
     getResp(
-        { endpoint, options = {} },
-        callback = () => {
+        { endpoint, options = {} }: {endpoint: string; options?: Record<string, string>},
+        callback: (data: NewsResponse) => void = () => {
             console.error('No callback for GET response');
         }
-    ) {
+    ): void {
         this.load('GET', endpoint, callback, options);
     }
 
-    errorHandler(res) {
+    errorHandler(res: Response) {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -23,8 +28,8 @@ class Loader {
         return res;
     }
 
-    makeUrl(options, endpoint) {
-        const urlOptions = { ...this.options, ...options };
+    makeUrl( endpoint: string, options?: Record<string, string>) { // поменял местами параметры, так как если enpoint стоит в конце то TS выдает ошибку.
+        const urlOptions = { ...this.options, ...(options || {}) };// options не будет undefined
         let url = `${this.baseLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key) => {
@@ -34,8 +39,8 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method, endpoint, callback, options = {}) {
-        fetch(this.makeUrl(options, endpoint), { method })
+    load(method: string, endpoint: string, callback: (data: NewsResponse) => void, options?: Record<string, string>): void {
+        fetch(this.makeUrl(endpoint, options), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
             .then((data) => callback(data))
