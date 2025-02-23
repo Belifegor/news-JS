@@ -1,6 +1,6 @@
 export interface NewsArticle {
     title: string;
-    description: string;
+    description: string | null;
     url: string;
   }
   
