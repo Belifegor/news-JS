@@ -1,4 +1,4 @@
-import { NewsResponse } from '../../types/interfaces';
+import { NewsResponse, SourcesAPIResponse } from '../../types/interfaces';
 
 class Loader {
     private baseLink: string;
@@ -9,13 +9,13 @@ class Loader {
         this.options = options;
     }
 
-    getResp(
+    getResp<T extends NewsResponse | SourcesAPIResponse>(
         { endpoint, options = {} }: { endpoint: string; options?: Record<string, string> },
-        callback: (data: NewsResponse) => void = () => {
+        callback: (data: T) => void = () => {
             console.error('No callback for GET response');
         }
     ): void {
-        this.load('GET', endpoint, callback, options);
+        this.load('GET', endpoint, (data) => callback(data as T), options);
     }
 
     errorHandler(res: Response) {
@@ -29,13 +29,13 @@ class Loader {
     }
 
     makeUrl(endpoint: string, options?: Record<string, string>) { // поменял местами параметры, так как если enpoint стоит в конце то TS выдает ошибку.
-        const urlOptions = { ...this.options, ...(options || {}) };// options не будет undefined
+        const urlOptions = { ...this.options, ...(options || {}) }; // options не будет undefined
         let url = `${this.baseLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key) => {
             url += `${key}=${urlOptions[key]}&`;
         });
-
+        console.log('Fetching URL:', url);
         return url.slice(0, -1);
     }
 

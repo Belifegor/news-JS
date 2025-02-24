@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 const path = require('path');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -28,7 +30,12 @@ const baseConfig = {
         path: path.resolve(__dirname, './dist'),
     },
     plugins: [
-        new DotenvWebpackPlugin(),
+        new DotenvWebpackPlugin({
+            path: './.env', // Указываем путь к .env
+            safe: true, // Проверяет .env.example
+            systemvars: true, // Берет переменные окружения из системы
+            allowEmptyValues: false, // Запрещает пустые переменные
+        }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, './src/index.html'),
             filename: 'index.html',

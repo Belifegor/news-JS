@@ -39,3 +39,8 @@ export interface SourcesResponse {
     status: string;
     sources: Source[];
 }
+
+export interface SourcesAPIResponse {
+    status: string;
+    sources: Source[];
+}

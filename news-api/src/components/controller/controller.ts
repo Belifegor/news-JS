@@ -1,4 +1,4 @@
-import { NewsAPIResponse, NewsResponse, SourcesResponse } from '../../types/interfaces';
+import { NewsAPIResponse, NewsResponse, SourcesResponse, SourcesAPIResponse } from '../../types/interfaces';
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
@@ -7,12 +7,13 @@ class AppController extends AppLoader {
             {
                 endpoint: 'sources',
             },
-            (data: NewsAPIResponse) => {
+            (data: SourcesAPIResponse) => {
+                console.log('Received data:', data);
                 callback({
                     status: data.status,
-                    sources: data.articles.map((article) => ({
-                        id: article.source?.id || null,
-                        name: article.source?.name || 'Unknown',
+                    sources: data.sources.map((source) => ({
+                        id: source.id || null,
+                        name: source.name || 'Unknown',
                     })),
                 });
             }
