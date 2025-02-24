@@ -2,7 +2,6 @@ export interface NewsArticle {
     title: string;
     description: string | null;
     url: string;
-    urlToImage: string | null;
 }
 
 export interface NewsAPIResponse {
@@ -23,6 +22,11 @@ export interface Article {
     urlToImage: string | null;
     publishedAt: string;
     content: string | null;
+}
+
+export interface Source {
+    id: string | null;
+    name: string;
 }
 
 export interface NewsResponse {
