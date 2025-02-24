@@ -1,6 +1,6 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
-import { NewsAPIResponse } from '../../types/interfaces';
+import { NewsAPIResponse, SourcesResponse } from '../../types/interfaces';
 
 class App {
     private controller: AppController;
@@ -21,7 +21,7 @@ class App {
             });
         }
 
-        this.controller.getSources((data: NewsAPIResponse) => this.view.drawSources(data));
+        this.controller.getSources((data: SourcesResponse) => this.view.drawSources(data));
     }
 }
 

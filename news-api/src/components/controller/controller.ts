@@ -1,13 +1,21 @@
-import { NewsAPIResponse } from '../../types/interfaces';
+import { NewsAPIResponse, NewsResponse, SourcesResponse } from '../../types/interfaces';
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
-    getSources(callback: (data: NewsAPIResponse) => void): void {
+    getSources(callback: (data: SourcesResponse) => void): void {
         super.getResp(
             {
                 endpoint: 'sources',
             },
-            callback
+            (data: NewsAPIResponse) => {
+                callback({
+                    status: data.status,
+                    sources: data.articles.map((article) => ({
+                        id: article.source?.id || null,
+                        name: article.source?.name || 'Unknown',
+                    })),
+                });
+            }
         );
     }
 
@@ -28,7 +36,9 @@ class AppController extends AppLoader {
                                 sources: sourceId,
                             },
                         },
-                        callback
+                        (data) => {
+                            if (callback) callback(data as NewsResponse);
+                        }
                     );
                 }
                 return;

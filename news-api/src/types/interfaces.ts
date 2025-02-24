@@ -1,13 +1,19 @@
-export interface NewsArticle {
-    title: string;
-    description: string | null;
-    url: string;
-}
+// export interface NewsArticle {
+//     title: string;
+//     description: string | null;
+//     url: string;
+// }
 
 export interface NewsAPIResponse {
     status: string;
     totalResults: number;
-    articles: NewsArticle[];
+    articles: Article[];
+}
+
+export interface NewsResponse {
+    status: string;
+    totalResults: number;
+    articles: Article[];
 }
 
 export interface Article {
@@ -27,12 +33,6 @@ export interface Article {
 export interface Source {
     id: string | null;
     name: string;
-}
-
-export interface NewsResponse {
-    status: string;
-    totalResults: number;
-    articles: Article[];
 }
 
 export interface SourcesResponse {
