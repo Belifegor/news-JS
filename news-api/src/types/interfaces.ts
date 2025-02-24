@@ -4,14 +4,19 @@
 //     url: string;
 // }
 
+export enum ResponseStatus {
+    OK = 'ok',
+    ERROR = 'error',
+}
+
 export interface NewsAPIResponse {
-    status: string;
+    status: ResponseStatus;
     totalResults: number;
     articles: Article[];
 }
 
 export interface NewsResponse {
-    status: string;
+    status: ResponseStatus;
     totalResults: number;
     articles: Article[];
 }
