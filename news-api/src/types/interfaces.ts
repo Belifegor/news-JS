@@ -2,18 +2,19 @@ export interface NewsArticle {
     title: string;
     description: string | null;
     url: string;
-  }
-  
-  export interface NewsAPIResponse {
+    urlToImage: string | null;
+}
+
+export interface NewsAPIResponse {
     status: string;
     totalResults: number;
     articles: NewsArticle[];
-  }
-  
-  export interface Article {
+}
+
+export interface Article {
     source: {
-      id: string | null;
-      name: string;
+        id: string | null;
+        name: string;
     };
     author: string | null;
     title: string;
@@ -22,11 +23,10 @@ export interface NewsArticle {
     urlToImage: string | null;
     publishedAt: string;
     content: string | null;
-  }
-  
-  export interface NewsResponse {
+}
+
+export interface NewsResponse {
     status: string;
     totalResults: number;
     articles: Article[];
-  }
-  
+}
